@@ -1,0 +1,48 @@
+﻿@model StajProjesi_4.Models.Admin
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>GİRİŞ</h2>
+
+@using (Html.BeginForm("Autherize","AdminLogin",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal" id="loginEkran">
+    <h4>ADMİN GİRİŞ</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.Label("KULLANICI ADI", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ADMİN, new { htmlAttributes = new { @class = "form-control", Reqired = "" } })
+            @Html.ValidationMessageFor(model => model.ADMİN, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("ŞİFRE", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SİFRE, new { htmlAttributes = new { @class = "form-control", Reqired = "" } })
+            @Html.ValidationMessageFor(model => model.SİFRE, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="hataMesaji">
+            @Html.DisplayFor(model=>model.LoginErrorMessage)
+        </label>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Giriş Yap" class="btn btn-info" />
+        </div>
+    </div>
+</div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

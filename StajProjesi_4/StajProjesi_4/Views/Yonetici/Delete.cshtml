@@ -1,0 +1,70 @@
+﻿@model StajProjesi_4.Models.Bilgiler
+
+@{
+    ViewBag.Title = "Delete";
+    if (Session["ID"] == null)
+    {
+        Response.Redirect("~/AdminLogin/Index");
+    }
+}
+
+<h2>SİL</h2>
+
+<h3>Silmek istediğinize emin misiniz?</h3>
+<div>
+    <h4>Bilgiler</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SOYAD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SOYAD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TELEFON)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TELEFON)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("YÖNETİCİ")
+            @*@Html.DisplayNameFor(model => model.Bilgiler2.AD)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bilgiler2.AD)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("DEPARTMAN")
+            @*@Html.DisplayNameFor(model => model.Departman1.DPRTMN)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departman1.DPRTMN)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            @Html.ActionLink("Listeye Geri Dön", "Index")
+        </div>
+    }
+</div>

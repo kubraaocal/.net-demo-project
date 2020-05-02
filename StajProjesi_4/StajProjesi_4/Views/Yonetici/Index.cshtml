@@ -1,0 +1,68 @@
+﻿@model IEnumerable<StajProjesi_4.Models.Bilgiler>
+
+@{
+    ViewBag.Title = "Index";
+    if (Session["ID"] == null)
+    {
+        Response.Redirect("~/AdminLogin/Index");
+    }
+}
+
+<h2>KİŞİ LİSTESİ</h2>
+
+<div class="GirisCikis">
+    <h3>@Session["ADMİN"]</h3>
+    @*<a href="@Url.Action("LogOut", "AdminLogin")">Şifre değiştir</a>*@
+    <a href="@Url.Action("LogOut", "AdminLogin")" class="btn btn-danger cikisButton">Çıkış</a>
+</div>
+<p>
+    @Html.ActionLink("Kayıt Ekle", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SOYAD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TELEFON)
+        </th>
+        <th>
+            @Html.DisplayName("YÖNETİCİ")
+            @*@Html.DisplayNameFor(model => model.Bilgiler2.AD)*@
+        </th>
+        <th>
+            @Html.DisplayName("DEPARTMAN")
+            @*@Html.DisplayNameFor(model => model.Departman1.DPRTMN)*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SOYAD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TELEFON)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bilgiler2.AD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departman1.DPRTMN)
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Edit", new { id = item.ID }, new { @class = "btn btn-info" }) |
+                @Html.ActionLink("Detaylar", "Details", new { id = item.ID }, new { @class = "btn btn-success" }) |
+                @Html.ActionLink("Sil", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

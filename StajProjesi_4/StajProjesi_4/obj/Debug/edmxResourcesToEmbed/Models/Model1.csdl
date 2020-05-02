@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbBilgiKayitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ADMİN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SİFRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Bilgiler">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TELEFON" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="DEPARTMAN" Type="Int32" />
+    <Property Name="YNTBİLGİ" Type="Int32" />
+    <NavigationProperty Name="Bilgiler1" Relationship="Self.FK_Bilgiler_Bilgiler" FromRole="Bilgiler" ToRole="Bilgiler1" />
+    <NavigationProperty Name="Bilgiler2" Relationship="Self.FK_Bilgiler_Bilgiler" FromRole="Bilgiler1" ToRole="Bilgiler" />
+    <NavigationProperty Name="Departman1" Relationship="Self.FK_Bilgiler_Departman" FromRole="Bilgiler" ToRole="Departman" />
+  </EntityType>
+  <EntityType Name="Departman">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DPRTMN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Bilgiler" Relationship="Self.FK_Bilgiler_Departman" FromRole="Departman" ToRole="Bilgiler" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Bilgiler_Bilgiler">
+    <End Role="Bilgiler" Type="Self.Bilgiler" Multiplicity="0..1" />
+    <End Role="Bilgiler1" Type="Self.Bilgiler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bilgiler">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Bilgiler1">
+        <PropertyRef Name="YNTBİLGİ" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bilgiler_Departman">
+    <End Role="Departman" Type="Self.Departman" Multiplicity="0..1" />
+    <End Role="Bilgiler" Type="Self.Bilgiler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departman">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Bilgiler">
+        <PropertyRef Name="DEPARTMAN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbBilgiKayitEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admin" EntityType="Self.Admin" />
+    <EntitySet Name="Bilgiler" EntityType="Self.Bilgiler" />
+    <EntitySet Name="Departman" EntityType="Self.Departman" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_Bilgiler_Bilgiler" Association="Self.FK_Bilgiler_Bilgiler">
+      <End Role="Bilgiler" EntitySet="Bilgiler" />
+      <End Role="Bilgiler1" EntitySet="Bilgiler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bilgiler_Departman" Association="Self.FK_Bilgiler_Departman">
+      <End Role="Departman" EntitySet="Departman" />
+      <End Role="Bilgiler" EntitySet="Bilgiler" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
